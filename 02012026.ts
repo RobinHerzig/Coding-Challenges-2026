@@ -1,0 +1,22 @@
+// Lowest common ancestor of binary search tree. (Binary tree)
+
+function lowestCommonAncestor(root: TreeNode | null, p: TreeNode | null, q: TreeNode | null): TreeNode | null {
+  const moveLeft = p.val < root.val && q.val < root.val;
+  const moveRight = p.val > root.val && q.val > root.val;
+
+  if (moveLeft) {
+    return lowestCommonAncestor(root.left, p, q);
+  } else if (moveRight) {
+    return lowestCommonAncestor(root.right, p, q);
+  }
+
+  return root;
+}
+
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+
+// root: TreeNode | null. 2 <= number of nodes <= 10^5. -10^9 <= Node.val <= 10^9. All values are unique.
+// p: TreeNode | null. Node exists in the BST.
+// q: TreeNode | null. Node exists in the BST.
+// Retrn the lower common ancestor of p and q.
+// - The ancestor can be p or q itself.
