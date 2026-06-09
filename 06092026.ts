@@ -1,4 +1,4 @@
-// Generate all valid combinations of parentheses. (Backtracking)
+// Combination sum. (Backtracking)
 
 function combinationSum(candidates: number[], target: number): number[][] {
   const result: number[][] = [];
