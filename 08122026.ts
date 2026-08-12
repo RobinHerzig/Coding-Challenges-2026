@@ -11,8 +11,12 @@ function exist(board: string[][], word: string): boolean {
   // Visit each cell
   for (let i = 0; i < board.length; i++) {
     for (let j = 0; j < board[i].length; j++) {
-      if (board[i][j] === word[0]) {
-        if (dfs(i, j, 0)) {
+      const isLetterMatch = board[i][j] === word[0];
+
+      if (isLetterMatch) {
+        const isWordMatch = dfs(i, j, 0);
+
+        if (isWordMatch) {
           return true;
         }
       }
@@ -20,33 +24,33 @@ function exist(board: string[][], word: string): boolean {
   }
 
   function dfs(i: number, j: number, k: number): boolean {
-    // Base cases
-    if (k === word.length) {
-      return true;
-    }
-
+    const isWordMatch = k === word.length;
     const isCell = board[i] && board[i][j];
     const isCorrectLetter = isCell && board[i][j] === word[k];
+
+    // Base cases
+    if (isWordMatch) {
+      return true;
+    }
 
     if (!isCell || !isCorrectLetter) {
       return false;
     }
 
-    // Recursive cases
-    let result = false;
-
+    // Recursive case
     board[i][j] = "#";
 
     for (const [x, y] of directions) {
-      if (dfs(i + x, j + y, k + 1)) {
-        result = true;
-        break;
+      const isNextLetterMatch = dfs(i + x, j + y, k + 1);
+
+      if (isNextLetterMatch) {
+        return true;
       }
     }
 
     board[i][j] = word[k];
 
-    return result;
+    return false;
   }
 
   return false;
